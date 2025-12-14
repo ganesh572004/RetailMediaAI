@@ -43,7 +43,7 @@ Add the following variables:
 
 | Variable Name | Description | Example Value |
 | :--- | :--- | :--- |
-| `NEXTAUTH_URL` | Your production URL (Vercel will generate one, but set this to that URL after first deploy, or use your custom domain) | `https://your-project.vercel.app` |
+| `NEXTAUTH_URL` | Your production URL | `https://retail-media-ai.vercel.app` |
 | `NEXTAUTH_SECRET` | A random string used to encrypt sessions | `generate-a-long-random-string` |
 | `GOOGLE_CLIENT_ID` | From Google Cloud Console | `...apps.googleusercontent.com` |
 | `GOOGLE_CLIENT_SECRET` | From Google Cloud Console | `GOCSPX-...` |
@@ -71,15 +71,15 @@ After your site is live, you need to update your OAuth providers (Google/Faceboo
 2.  Navigate to **APIs & Services** -> **Credentials**.
 3.  Edit your OAuth 2.0 Client ID.
 4.  Add your Vercel URL to **Authorized JavaScript origins**:
-    *   `https://your-project.vercel.app`
+    *   `https://retail-media-ai.vercel.app`
 5.  Add the callback URL to **Authorized redirect URIs**:
-    *   `https://your-project.vercel.app/api/auth/callback/google`
+    *   `https://retail-media-ai.vercel.app/api/auth/callback/google`
 6.  Save changes.
 
 ### Facebook Developers
 1.  Go to [Meta for Developers](https://developers.facebook.com/).
 2.  Select your app -> **Facebook Login** -> **Settings**.
-3.  Add `https://your-project.vercel.app/api/auth/callback/facebook` to **Valid OAuth Redirect URIs**.
+3.  Add `https://retail-media-ai.vercel.app/api/auth/callback/facebook` to **Valid OAuth Redirect URIs**.
 4.  Save changes.
 
 ## Troubleshooting

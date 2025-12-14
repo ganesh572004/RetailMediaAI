@@ -20,7 +20,8 @@ export async function POST(request: Request) {
       },
     });
 
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const origin = request.headers.get('origin');
+    const baseUrl = process.env.NEXTAUTH_URL || origin || 'http://localhost:3000';
     const resetLink = `${baseUrl}/reset-password?email=${encodeURIComponent(email)}&token=${Date.now()}`;
 
     // Check for SMTP credentials

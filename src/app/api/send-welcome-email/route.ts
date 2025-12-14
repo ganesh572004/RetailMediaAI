@@ -30,7 +30,8 @@ export async function POST(request: Request) {
       },
     });
 
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const origin = request.headers.get('origin');
+    const baseUrl = process.env.NEXTAUTH_URL || origin || 'http://localhost:3000';
     // Ideally, upload your logo to a CDN (like Cloudinary, S3) for best performance and visibility.
     // For now, we assume the logo is in the public folder as 'logo.png'.
     // Note: Localhost URLs won't work for external email recipients.
