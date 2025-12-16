@@ -16,12 +16,12 @@ const STYLES = [
 ];
 
 const STYLE_PROMPTS: Record<string, string> = {
-  'standard': ', high quality, 4k, detailed, sharp focus, vivid colors',
-  'realistic': ', photorealistic, 8k, raw photo, hyperrealistic, highly detailed, dslr, sharp focus, real life, detailed skin texture, masterpiece, best quality, live action adaptation, detailed facial features, photograph, 35mm, f/1.8',
-  'cinematic': ', cinematic lighting, movie scene, 8k, detailed, dramatic lighting, imax, color graded, detailed background, atmospheric, film grain, wide angle, anamorphic lens, depth of field',
-  '3d-render': ', 3d render, unreal engine 5, octane render, ray tracing, 8k, highly detailed, c4d, blender, 3d model, volumetric lighting, digital art',
-  'anime': ', anime style, studio ghibli, vibrant colors, high quality, detailed character design, 2d, cel shaded, manga style, illustration',
-  'cyberpunk': ', cyberpunk, neon lights, futuristic, high tech, detailed, night city, sci-fi, synthwave, blade runner style, glowing',
+  'standard': ', high quality, 8k, detailed, sharp focus, vivid colors, highly detailed, perfect composition, uhd, hdr, accurate to prompt',
+  'realistic': ', photorealistic, 8k, raw photo, hyperrealistic, highly detailed, dslr, sharp focus, real life, detailed skin texture, masterpiece, best quality, live action adaptation, detailed facial features, photograph, 35mm, f/1.8, 8k uhd, hdr, accurate details',
+  'cinematic': ', cinematic lighting, movie scene, 8k, detailed, dramatic lighting, imax, color graded, detailed background, atmospheric, film grain, wide angle, anamorphic lens, depth of field, 8k uhd, masterpiece',
+  '3d-render': ', 3d render, unreal engine 5, octane render, ray tracing, 8k, highly detailed, c4d, blender, 3d model, volumetric lighting, digital art, 8k uhd',
+  'anime': ', anime style, studio ghibli, vibrant colors, high quality, detailed character design, 2d, cel shaded, manga style, illustration, 8k, masterpiece',
+  'cyberpunk': ', cyberpunk, neon lights, futuristic, high tech, detailed, night city, sci-fi, synthwave, blade runner style, glowing, 8k, highly detailed',
 };
 
 export const ImageGenerator = ({ onImageSaved }: { onImageSaved?: () => void }) => {
@@ -179,10 +179,11 @@ export const ImageGenerator = ({ onImageSaved }: { onImageSaved?: () => void }) 
       const imageUrls = seeds.map(seed => {
         // Construct URL
         // nologo=true removes the watermark
-        // width/height=1024 for high quality
+        // width/height=1280 for higher quality (increased from 1024)
         // seed ensures consistency/variation
         // model=flux is generally best, but if it fails we might want to fallback (handled in UI)
-        return `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=1024&height=1024&seed=${seed}&nologo=true&model=flux`; 
+        // enhance=true attempts to improve prompt adherence and quality
+        return `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=1280&height=1280&seed=${seed}&nologo=true&model=flux&enhance=true`; 
       });
 
       // Simulate a short delay to make it feel like "processing" (since the URL loads instantly but image takes time to render)
