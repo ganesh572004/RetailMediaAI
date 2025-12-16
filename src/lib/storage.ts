@@ -95,6 +95,11 @@ export const saveUserProfile = async (email: string, profile: UserProfile) => {
     const current = (await getUserProfile(normalizedEmail)) || {};
     await localforage.setItem(key, { ...current, ...profile });
     
+    // Dispatch event to notify components (Navbar, etc.)
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('profile-updated'));
+    }
+    
     // Save phone mapping if phone number exists
     if (profile.phoneNumber) {
       await localforage.setItem(`phone_map_${profile.phoneNumber}`, normalizedEmail);
