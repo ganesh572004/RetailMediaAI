@@ -16,11 +16,11 @@ const STYLES = [
 ];
 
 const STYLE_PROMPTS: Record<string, string> = {
-  'standard': ', high quality, 8k, detailed, sharp focus, vivid colors, highly detailed, perfect composition, uhd, hdr, accurate to prompt, perfect face, detailed eyes, 8k resolution',
-  'realistic': ', photorealistic, 8k, raw photo, hyperrealistic, highly detailed, dslr, sharp focus, real life, detailed skin texture, masterpiece, best quality, live action adaptation, detailed facial features, photograph, 35mm, f/1.8, 8k uhd, hdr, accurate details, perfect face, detailed eyes, no deformity, 8k resolution',
+  'standard': ', high quality, 8k, detailed, sharp focus, vivid colors, highly detailed, perfect composition, uhd, hdr, accurate to prompt, perfect face, detailed eyes, 8k resolution, precise details',
+  'realistic': ', photorealistic, 8k, raw photo, hyperrealistic, highly detailed, dslr, sharp focus, real life, detailed skin texture, masterpiece, best quality, live action adaptation, detailed facial features, photograph, 35mm, f/1.8, 8k uhd, hdr, accurate details, perfect face, detailed eyes, no deformity, 8k resolution, true to life',
   'cinematic': ', cinematic lighting, movie scene, 8k, detailed, dramatic lighting, imax, color graded, detailed background, atmospheric, film grain, wide angle, anamorphic lens, depth of field, 8k uhd, masterpiece, perfect face, detailed eyes, 8k resolution',
   '3d-render': ', 3d render, unreal engine 5, octane render, ray tracing, 8k, highly detailed, c4d, blender, 3d model, volumetric lighting, digital art, 8k uhd, perfect face, 8k resolution',
-  'anime': ', anime style, studio ghibli, vibrant colors, high quality, detailed character design, 2d, cel shaded, manga style, illustration, 8k, masterpiece, perfect face, detailed eyes, no deformity, 8k resolution',
+  'anime': ', anime style, studio ghibli, vibrant colors, high quality, detailed character design, 2d, cel shaded, manga style, illustration, 8k, masterpiece, perfect face, detailed eyes, no deformity, 8k resolution, faithful to prompt',
   'cyberpunk': ', cyberpunk, neon lights, futuristic, high tech, detailed, night city, sci-fi, synthwave, blade runner style, glowing, 8k, highly detailed, perfect face, 8k resolution',
 };
 
@@ -172,20 +172,20 @@ export const ImageGenerator = ({ onImageSaved }: { onImageSaved?: () => void }) 
       const stylePrompt = STYLE_PROMPTS[effectiveStyle] || '';
       const fullPrompt = `${refinedPrompt}${stylePrompt}`;
       
-      // Generate 4 variations using Pollinations.ai (Free, No Key, High Quality)
+      // Generate 2 variations to avoid rate limits and ensure higher success rate
       // We use different seeds to get variations
-      const seeds = Array.from({ length: 4 }, () => Math.floor(Math.random() * 1000000));
+      const seeds = Array.from({ length: 2 }, () => Math.floor(Math.random() * 1000000));
       
       const imageUrls = seeds.map(seed => {
         // Construct URL
         // nologo=true removes the watermark
-        // width/height=1024 for optimal speed/quality balance (1280 was too slow)
+        // width/height=1024 for optimal speed/quality balance
         // seed ensures consistency/variation
-        // model=flux is generally best, but if it fails we might want to fallback (handled in UI)
-        // enhance=true attempts to improve prompt adherence and quality
+        // model=flux is generally best
+        // enhance=false ensures the AI follows the prompt EXACTLY without rewriting it
         // negative_prompt helps remove artifacts and bad quality
-        const negativePrompt = "blurry, low quality, distorted faces, bad anatomy, extra limbs, ugly, pixelated, grain, noise, deformed, disfigured, watermark, text, bad hands, missing fingers, low resolution";
-        return `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=1024&height=1024&seed=${seed}&nologo=true&model=flux&enhance=true&negative=${encodeURIComponent(negativePrompt)}`; 
+        const negativePrompt = "blurry, low quality, distorted faces, bad anatomy, extra limbs, ugly, pixelated, grain, noise, deformed, disfigured, watermark, text, bad hands, missing fingers, low resolution, mutation, bad proportions";
+        return `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=1024&height=1024&seed=${seed}&nologo=true&model=flux&enhance=false&negative=${encodeURIComponent(negativePrompt)}`; 
       });
 
       // Simulate a short delay to make it feel like "processing" (since the URL loads instantly but image takes time to render)
