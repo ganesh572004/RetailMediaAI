@@ -19,11 +19,11 @@ export const Footer = () => {
                 <span>+91 7569102138</span>
               </a>
               <a 
-                href="mailto:retailmediaai@gmail.com" 
+                href="mailto:ganeshkorada572004@gmail.com" 
                 className="flex items-center space-x-2 hover:text-primary transition-colors"
               >
                 <Mail size={18} />
-                <span>retailmediaai@gmail.com</span>
+                <span>ganeshkorada572004@gmail.com</span>
               </a>
             </div>
           </div>
