@@ -53,10 +53,10 @@ export default function LandingPage() {
             </main>
           </div>
         </div>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-muted/30 flex items-center justify-center transition-colors duration-500">
-          <div className="p-8">
+        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-muted/30 flex items-center justify-center transition-colors duration-500 min-h-[300px] lg:min-h-0">
+          <div className="p-8 w-full max-w-md">
              {/* Placeholder for Hero Image */}
-             <div className="bg-card-background p-6 rounded-xl shadow-xl max-w-md mx-auto transform rotate-3 hover:rotate-0 transition-all duration-500 border border-border">
+             <div className="bg-card-background p-6 rounded-xl shadow-xl w-full transform rotate-3 hover:rotate-0 transition-all duration-500 border border-border">
                 <div className="h-64 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
                     <ShoppingBag className="h-24 w-24 text-primary" />
                 </div>

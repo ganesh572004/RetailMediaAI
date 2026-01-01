@@ -77,7 +77,8 @@ export default function SettingsPage() {
         // Clear the data that was just reported
         await clearUsageDates(session.user.email, dates);
       } else {
-        alert("Failed to send report.");
+        const errorData = await res.json();
+        alert(`Failed to send report: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error(error);

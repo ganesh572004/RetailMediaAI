@@ -434,7 +434,7 @@ export const DashboardForm = () => {
               {generatedResult ? (
                 <div 
                   ref={previewRef}
-                  className={`relative transition-all duration-300 overflow-hidden group ${previewMode === 'mobile' ? 'w-[375px] h-[667px]' : 'w-full h-full'}`}
+                  className={`relative transition-all duration-300 overflow-hidden group max-w-full ${previewMode === 'mobile' ? 'w-[375px] h-[667px]' : 'w-full h-full'}`}
                 >
                   <img 
                     src={generatedResult} 

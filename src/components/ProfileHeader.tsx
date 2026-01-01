@@ -259,8 +259,8 @@ export const ProfileHeader = ({ user }: { user: any }) => {
   return (
     <>
       <Card className="mb-6">
-        <CardContent className="flex items-center p-6">
-          <div className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center text-primary overflow-hidden border-4 border-background shadow-lg relative group transition-colors duration-500">
+        <CardContent className="flex flex-col sm:flex-row items-center p-6 gap-4 sm:gap-6">
+          <div className="h-24 w-24 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary overflow-hidden border-4 border-background shadow-lg relative group transition-colors duration-500">
             {profileImage ? (
               <img src={profileImage} alt="Profile" className="h-full w-full object-cover" />
             ) : (
@@ -270,10 +270,10 @@ export const ProfileHeader = ({ user }: { user: any }) => {
                 <Camera className="text-white h-6 w-6" />
             </div>
           </div>
-          <div className="ml-6">
+          <div className="text-center sm:text-left">
             <h2 className="text-xl font-bold text-foreground">{displayName}</h2>
             <p className="text-muted-foreground">{displayEmail}</p>
-            <div className="mt-2 flex gap-2">
+            <div className="mt-2 flex gap-2 justify-center sm:justify-start">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">
                     Active
                 </span>
@@ -282,8 +282,8 @@ export const ProfileHeader = ({ user }: { user: any }) => {
                 </span>
             </div>
           </div>
-          <div className="ml-auto">
-            <Button variant="outline" onClick={() => setShowModal(true)}>Edit Photo</Button>
+          <div className="sm:ml-auto w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto" onClick={() => setShowModal(true)}>Edit Photo</Button>
           </div>
         </CardContent>
       </Card>

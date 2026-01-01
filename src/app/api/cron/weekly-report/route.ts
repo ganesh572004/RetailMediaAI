@@ -72,13 +72,27 @@ export async function POST(req: Request) {
         });
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: user,
-        pass: pass
-      }
-    });
+    let transporter;
+    
+    if (process.env.SMTP_HOST) {
+      transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: process.env.SMTP_SECURE === 'true',
+        auth: {
+          user: user,
+          pass: pass
+        }
+      });
+    } else {
+      transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: user,
+          pass: pass
+        }
+      });
+    }
 
     await transporter.sendMail({
       from: '"RetailMediaAI" <no-reply@retailmedia.ai>',
@@ -118,8 +132,8 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Email error:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Failed to send email' }, { status: 500 });
   }
 }
