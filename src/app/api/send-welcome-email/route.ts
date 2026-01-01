@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
     // Send mail with defined transport object
     const info = await transporter.sendMail({
-      from: '"RetailMediaAI" <retailmediaai@gmail.com>', // sender address
+      from: '"RetailMediaAI" <ganeshkorada572004@gmail.com>', // sender address
       to: email, // list of receivers
       subject: "Take a deep breath. Designing just got easy. ☕✨", // Subject line
       html: htmlContent, // html body

@@ -20,6 +20,7 @@ export default function SettingsPage() {
   const [isSavingPhone, setIsSavingPhone] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
   const [savedPhoneNumber, setSavedPhoneNumber] = useState('');
+  const [reportPreview, setReportPreview] = useState<{ chartUrl: string; message: string } | null>(null);
 
   // Load saved phone number
   React.useEffect(() => {
@@ -72,13 +73,27 @@ export default function SettingsPage() {
         })
       });
       
-      if (res.ok) {
-        alert(`Weekly report sent to ${session.user.email}! Data for this week has been cleared.`);
+      const responseData = await res.json();
+
+      if (responseData.success) {
+        if (responseData.emailSent) {
+          alert(`Weekly report sent to ${session.user.email}! Data for this week has been cleared.`);
+        } else {
+          alert(`Report generated but email failed: ${responseData.emailError}. See preview below.`);
+        }
+        
+        // Show preview regardless of email success
+        if (responseData.chartUrl) {
+          setReportPreview({
+            chartUrl: responseData.chartUrl,
+            message: responseData.message
+          });
+        }
+
         // Clear the data that was just reported
         await clearUsageDates(session.user.email, dates);
       } else {
-        const errorData = await res.json();
-        alert(`Failed to send report: ${errorData.error || 'Unknown error'}`);
+        alert(`Failed to generate report: ${responseData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error(error);
@@ -255,6 +270,24 @@ export default function SettingsPage() {
                             </>
                           )}
                         </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {reportPreview && (
+                    <div className="mt-6 p-4 bg-background rounded-lg border border-border animate-in fade-in slide-in-from-top-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-medium text-foreground">Report Preview</h4>
+                        <Button variant="ghost" size="sm" onClick={() => setReportPreview(null)}>Close</Button>
+                      </div>
+                      <div className="space-y-4">
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                          <img src={reportPreview.chartUrl} alt="Weekly Activity Chart" className="w-full rounded shadow-sm" />
+                        </div>
+                        <div className="bg-primary/5 p-4 rounded-lg border border-primary/10">
+                          <h5 className="text-sm font-semibold text-primary mb-1">💡 Weekly Giggle</h5>
+                          <p className="text-sm text-muted-foreground italic">"{reportPreview.message}"</p>
+                        </div>
                       </div>
                     </div>
                   )}
