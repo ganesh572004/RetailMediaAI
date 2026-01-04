@@ -57,7 +57,7 @@ Follow these steps to set up the project locally:
     ```
 
 4.  **Open the app:**
-    Visit [http://localhost:3000](http://localhost:3000) in your browser.
+    Visit (https://retail-media-ai.vercel.app) in your browser.
 
 ## 📂 Project Structure
 
